@@ -1,0 +1,129 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    name: Check
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Go
+        uses: actions/setup-go@v7
+        with:
+          go-version: stable
+          cache: true
+
+      - name: Check
+        run: make check
+
+  build:
+    name: Build
+    needs: check
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - goos: linux
+            goarch: amd64
+
+          - goos: linux
+            goarch: arm64
+
+          - goos: linux
+            goarch: arm
+            goarm: "7"
+
+          - goos: linux
+            goarch: "386"
+
+          - goos: darwin
+            goarch: amd64
+
+          - goos: darwin
+            goarch: arm64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Go
+        uses: actions/setup-go@v7
+        with:
+          go-version: stable
+          cache: true
+
+      - name: Build
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          GOARM: ${{ matrix.goarm }}
+          CGO_ENABLED: "0"
+        run: |
+          set -euo pipefail
+
+          mkdir -p dist
+
+          make build \
+            BINARY="dist/whoisusing" \
+            BUILD_FLAGS="-trimpath" \
+            LDFLAGS="-s -w"
+
+          suffix=""
+          if [ -n "${GOARM:-}" ]; then
+            suffix="v${GOARM}"
+          fi
+
+          name="whoisusing-${GITHUB_REF_NAME}-${GOOS}-${GOARCH}${suffix}"
+
+          tar -czf "${name}.tar.gz" \
+            -C dist \
+            whoisusing
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goarm }}
+          path: "*.tar.gz"
+          if-no-files-found: error
+
+  release:
+    name: Publish Release
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Generate checksums
+        run: |
+          set -euo pipefail
+
+          cd dist
+          sha256sum *.tar.gz > checksums.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: dist/*
+          generate_release_notes: true
