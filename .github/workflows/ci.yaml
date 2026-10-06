@@ -34,3 +34,77 @@ jobs:
 
       - name: Check
         run: make check
+
+  portability:
+    name: Cross-platform build
+    strategy:
+      matrix:
+        include:
+          - goos: linux
+            goarch: amd64
+
+          - goos: linux
+            goarch: arm64
+
+          - goos: linux
+            goarch: arm
+            goarm: "7"
+
+          - goos: linux
+            goarch: "386"
+
+          - goos: darwin
+            goarch: amd64
+
+          - goos: darwin
+            goarch: arm64
+
+          - goos: freebsd
+            goarch: amd64
+
+          - goos: freebsd
+            goarch: arm64
+
+          - goos: netbsd
+            goarch: amd64
+
+          - goos: netbsd
+            goarch: arm64
+
+          - goos: openbsd
+            goarch: amd64
+
+          - goos: openbsd
+            goarch: arm64
+
+          - goos: solaris
+            goarch: amd64
+
+          - goos: illumos
+            goarch: amd64
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Go
+        uses: actions/setup-go@v7
+        with:
+          go-version: stable
+          cache: true
+
+      - name: Build
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          GOARM: ${{ matrix.goarm }}
+          CGO_ENABLED: "0"
+        run: |
+          mkdir -p dist
+
+          make build \
+            BINARY="dist/whoisusing" \
+            BUILD_FLAGS="-trimpath" \
+            LDFLAGS="-s -w"

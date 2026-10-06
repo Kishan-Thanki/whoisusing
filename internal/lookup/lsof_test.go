@@ -1,6 +1,7 @@
 package lookup
 
 import (
+	"errors"
 	"strings"
 	"testing"
 
@@ -189,6 +190,10 @@ func TestLsofFindCommandError(t *testing.T) {
 	_, err := lsof.Find(8080)
 	if err == nil {
 		t.Fatal("Find() error = nil, want error")
+	}
+
+	if errors.Is(err, errUnsupported) {
+		t.Skip("lsof is unsupported on this platform")
 	}
 
 	if !strings.Contains(err.Error(), "lsof failed") {

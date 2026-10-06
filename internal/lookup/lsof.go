@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"os/exec"
 	"strconv"
 	"strings"
 
@@ -14,6 +13,11 @@ import (
 const (
 	lsofFieldFormat = "pcLPnT0"
 	lsofPortFormat  = ":%d"
+)
+
+var (
+	errNoMatch     = errors.New("no match")
+	errUnsupported = errors.New("unsupported platform")
 )
 
 type Lsof struct {
@@ -27,39 +31,24 @@ func NewLsof() Lsof {
 }
 
 func (l Lsof) Find(port int) ([]process.Info, error) {
-	cmd := exec.Command(
-		l.command,
-		"-nP",
-		"-F",
-		lsofFieldFormat,
-		"-Ts",
-		"-i",
-		fmt.Sprintf(lsofPortFormat, port),
-	)
+	output, stderr, err := execute(l.command, port)
+	if err != nil {
+		if errors.Is(err, errNoMatch) {
+			return nil, nil
+		}
 
-	var stderr bytes.Buffer
+		if errors.Is(err, errUnsupported) {
+			return nil, err
+		}
 
-	cmd.Stderr = &stderr
-
-	output, err := cmd.Output()
-	if err == nil {
-		return parse(output), nil
+		return nil, fmt.Errorf(
+			"lsof failed: %w: %s",
+			err,
+			strings.TrimSpace(stderr),
+		)
 	}
 
-	var exitErr *exec.ExitError
-
-	if errors.As(err, &exitErr) &&
-		exitErr.ExitCode() == 1 &&
-		len(output) == 0 &&
-		stderr.Len() == 0 {
-		return nil, nil
-	}
-
-	return nil, fmt.Errorf(
-		"lsof failed: %w: %s",
-		err,
-		strings.TrimSpace(stderr.String()),
-	)
+	return parse(output), nil
 }
 
 func parse(output []byte) []process.Info {
