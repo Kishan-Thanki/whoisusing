@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1648" height="928" viewBox="0 0 1648 928" role="img" aria-labelledby="title desc">
+  <title id="title">whoisusing — Port already in use?</title>
+  <desc id="desc">A dark navy and electric blue promotional graphic for whoisusing, with a terminal showing how to find and terminate processes using ports.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#061a2c"/>
+      <stop offset="0.48" stop-color="#020e1a"/>
+      <stop offset="1" stop-color="#03172b"/>
+    </linearGradient>
+    <radialGradient id="glowTopRight" cx="100%" cy="0%" r="85%">
+      <stop offset="0" stop-color="#0878ed" stop-opacity="0.93"/>
+      <stop offset="0.32" stop-color="#0756ab" stop-opacity="0.54"/>
+      <stop offset="1" stop-color="#03264a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowBottomLeft" cx="0%" cy="100%" r="80%">
+      <stop offset="0" stop-color="#0876ec" stop-opacity="0.98"/>
+      <stop offset="0.28" stop-color="#0756aa" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#031b35" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowBottomRight" cx="95%" cy="100%" r="70%">
+      <stop offset="0" stop-color="#075ac0" stop-opacity="0.68"/>
+      <stop offset="1" stop-color="#03182d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="terminalBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#03101d"/>
+      <stop offset="0.55" stop-color="#020c16"/>
+      <stop offset="1" stop-color="#010a13"/>
+    </linearGradient>
+    <linearGradient id="terminalBar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a1a2a"/>
+      <stop offset="1" stop-color="#061422"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00b8ee"/>
+      <stop offset="1" stop-color="#08b8ef"/>
+    </linearGradient>
+    <filter id="panelShadow" x="-15%" y="-15%" width="130%" height="135%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="14" result="blur"/>
+      <feOffset dy="10" result="offsetBlur"/>
+      <feColorMatrix in="offsetBlur" type="matrix" values="0 0 0 0 0.0  0 0 0 0 0.0  0 0 0 0 0.0  0 0 0 0.45 0" result="shadow"/>
+      <feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="terminalClip"><rect x="801" y="105" width="778" height="728" rx="13"/></clipPath>
+    <style>
+      .display { font-family: 'Inter Display', Inter, Arial, sans-serif; }
+      .terminal { font-family: 'DejaVu Sans Mono', 'Liberation Mono', monospace; font-size: 19.5px; font-weight: 400; fill: #cad9ee; }
+      .headline { font-family: 'Inter Display', Inter, Arial, sans-serif; font-weight: 800; font-size: 105px; letter-spacing: -3.8px; }
+    </style>
+  </defs>
+
+  <!-- Deep blue atmospheric background -->
+  <rect width="1648" height="928" fill="url(#background)"/>
+  <rect width="1648" height="928" fill="url(#glowTopRight)"/>
+  <rect width="1648" height="928" fill="url(#glowBottomLeft)"/>
+  <rect width="1648" height="928" fill="url(#glowBottomRight)"/>
+  <path d="M0 0H1648V928H0Z" fill="#00101f" opacity="0.12"/>
+
+  <!-- Brand mark -->
+  <path d="M107 170 L153 201 L107 234" fill="none" stroke="url(#cyan)" stroke-width="21" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="198" y="233" class="display" font-size="103" font-weight="800" letter-spacing="-3.6" fill="#f6f7fb" textLength="531" lengthAdjust="spacingAndGlyphs">whoisusing</text>
+
+  <!-- Cyan accent rule -->
+  <rect x="96" y="285.5" width="85" height="9.5" rx="4.75" fill="url(#cyan)"/>
+
+  <!-- Main message -->
+  <text x="91" y="421" class="headline" fill="#f4f5f9" textLength="610" lengthAdjust="spacingAndGlyphs">Port already</text>
+  <text x="91" y="531" class="headline" fill="url(#cyan)" textLength="375" lengthAdjust="spacingAndGlyphs">in use?</text>
+  <text x="97" y="619" class="display" font-size="40" font-weight="500" letter-spacing="-0.8" fill="#8da6cc" textLength="337" lengthAdjust="spacingAndGlyphs">Find the process.</text>
+  <text x="97" y="674" class="display" font-size="40" font-weight="500" letter-spacing="-0.8" fill="#8da6cc" textLength="331" lengthAdjust="spacingAndGlyphs">Kill it (if needed).</text>
+
+  <!-- Terminal window -->
+  <g>
+    <rect x="800.5" y="104.5" width="778.5" height="729" rx="13.5" fill="url(#terminalBg)" stroke="#173451" stroke-width="2.5"/>
+    <g clip-path="url(#terminalClip)">
+      <path d="M801 118 Q801 105 814 105 H1566 Q1579 105 1579 118 V152 H801Z" fill="url(#terminalBar)"/>
+      <path d="M802 152 H1578" fill="none" stroke="#071523" stroke-width="1.5"/>
+    </g>
+    <circle cx="831.5" cy="129.1" r="10.1" fill="#ff4b54"/>
+    <circle cx="861.7" cy="129.1" r="10.1" fill="#ffbd36"/>
+    <circle cx="892.1" cy="129.1" r="10.1" fill="#00c76a"/>
+  </g>
+
+  <!-- Crisp, vector terminal text -->
+  <g class="terminal">
+    <text x="828" y="192">whoisusing % whoisusing -p 8421</text>
+    <text x="828" y="219">Processes using port 8421:</text>
+
+    <text x="828" y="263">COMMAND</text>
+    <text x="977" y="263">PID</text>
+    <text x="1083" y="263">USER</text>
+    <text x="1216" y="263">CONNECTION STATE</text>
+    <text x="828" y="290">----------</text>
+    <text x="977" y="290">---</text>
+    <text x="1083" y="290">----</text>
+    <text x="1216" y="290">--------------------</text>
+    <text x="828" y="321">go</text>
+    <text x="977" y="321">8421</text>
+    <text x="1083" y="321">admin</text>
+    <text x="1216" y="321">TCP *:8421 (LISTEN)</text>
+
+    <text x="828" y="373">whoisusing % whoisusing -pq 7356</text>
+    <text x="828" y="400">7356</text>
+
+    <text x="828" y="454">whoisusing % whoisusing -pk 7356</text>
+    <text x="828" y="482">Processes using port 7356:</text>
+
+    <text x="828" y="526">COMMAND</text>
+    <text x="977" y="526">PID</text>
+    <text x="1083" y="526">USER</text>
+    <text x="1216" y="526">CONNECTION STATE</text>
+    <text x="828" y="553">----------</text>
+    <text x="977" y="553">---</text>
+    <text x="1083" y="553">----</text>
+    <text x="1216" y="553">--------------------</text>
+    <text x="828" y="584">python</text>
+    <text x="977" y="584">7356</text>
+    <text x="1083" y="584">admin</text>
+    <text x="1216" y="584">TCP *:7356 (LISTEN)</text>
+
+    <text x="828" y="628">Attempting to gracefully terminate processes...</text>
+    <text x="828" y="656">-&gt; Sent SIGTERM to PID 7356</text>
+
+    <text x="828" y="699">Verifying port 7356 status...</text>
+    <text x="828" y="726">Port 7356 is currently free.</text>
+
+    <text x="828" y="766">Success: All processes were terminated.</text>
+    <text x="828" y="807">whoisusing %</text>
+  </g>
+</svg>
