@@ -29,7 +29,7 @@ func TestParse(t *testing.T) {
 		},
 		{
 			name: "kill and quiet",
-			args: []string{"-kq", "-p", "8080"},
+			args: []string{"-k", "-q", "-p", "8080"},
 			want: Options{
 				Port:  8080,
 				Kill:  true,
@@ -37,8 +37,8 @@ func TestParse(t *testing.T) {
 			},
 		},
 		{
-			name: "combined flags",
-			args: []string{"-kqp", "8080"},
+			name: "flags after port",
+			args: []string{"-p", "8080", "-k", "-q"},
 			want: Options{
 				Port:  8080,
 				Kill:  true,
@@ -76,6 +76,9 @@ func TestParseErrors(t *testing.T) {
 		{"invalid flag", []string{"-x", "-p", "8080"}},
 		{"positional argument", []string{"8080"}},
 		{"unknown long option", []string{"--port", "8080"}},
+		{"combined kill and port", []string{"-kp", "8080"}},
+		{"combined kill and quiet", []string{"-kq", "-p", "8080"}},
+		{"combined flags", []string{"-kqp", "8080"}},
 	}
 
 	for _, tt := range tests {
@@ -131,8 +134,10 @@ func TestHelp(t *testing.T) {
 		"-k",
 		"-q",
 		"-h, --help",
+		"Use each short flag separately",
 		"Exit codes:",
 		"Examples:",
+		"whoisusing -k -q -p 8080",
 	} {
 		if !strings.Contains(got, want) {
 			t.Errorf("Help() does not contain %q", want)

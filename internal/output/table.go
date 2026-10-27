@@ -46,11 +46,6 @@ func PIDs(w io.Writer, pids []int) error {
 }
 
 func Free(w io.Writer, port int) error {
-	_, err := fmt.Fprintf(w, "Port %d is currently free.\n", port)
-	return err
-}
-
-func Found(w io.Writer, port int) error {
-	_, err := fmt.Fprintf(w, "Processes using port %d:\n\n", port)
+	_, err := fmt.Fprintf(w, "No process is listening on TCP port %d.\n", port)
 	return err
 }

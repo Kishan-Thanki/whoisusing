@@ -201,7 +201,7 @@ func TestLsofFindCommandError(t *testing.T) {
 	}
 }
 
-func TestLsofFindEmptyResult(t *testing.T) {
+func TestLsofFindNonzeroExit(t *testing.T) {
 	lsof := Lsof{
 		command: "sh",
 	}

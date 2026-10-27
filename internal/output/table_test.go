@@ -97,21 +97,8 @@ func TestFree(t *testing.T) {
 		t.Fatalf("Free() error = %v", err)
 	}
 
-	want := "Port 8080 is currently free.\n"
+	want := "No process is listening on TCP port 8080.\n"
 	if got := buf.String(); got != want {
 		t.Errorf("Free() = %q, want %q", got, want)
-	}
-}
-
-func TestFound(t *testing.T) {
-	var buf strings.Builder
-
-	if err := Found(&buf, 8080); err != nil {
-		t.Fatalf("Found() error = %v", err)
-	}
-
-	want := "Processes using port 8080:\n\n"
-	if got := buf.String(); got != want {
-		t.Errorf("Found() = %q, want %q", got, want)
 	}
 }

@@ -12,7 +12,6 @@ import (
 
 const (
 	lsofFieldFormat = "pcLPnT0"
-	lsofPortFormat  = ":%d"
 )
 
 var (

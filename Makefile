@@ -5,7 +5,7 @@ BINARY := whoisusing
 all: build
 
 build:
-	go build -o $(BINARY) .
+	go build $(BUILD_FLAGS) -ldflags="$(LDFLAGS)" -o $(BINARY) .
 
 clean:
 	rm -f $(BINARY)

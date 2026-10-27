@@ -133,7 +133,7 @@ func TestRunPortFree(t *testing.T) {
 		t.Fatalf("Run() = %d, want 0", code)
 	}
 
-	want := "Port 8080 is currently free.\n"
+	want := "No process is listening on TCP port 8080.\n"
 	if stdout.String() != want {
 		t.Errorf("stdout = %q, want %q", stdout.String(), want)
 	}
@@ -202,7 +202,6 @@ func TestRunFoundProcesses(t *testing.T) {
 	}
 
 	for _, want := range []string{
-		"Processes using port 8080:",
 		"node",
 		"123",
 		"alice",
@@ -486,7 +485,7 @@ func TestRunQuietKillSuccess(t *testing.T) {
 	var stdout, stderr strings.Builder
 
 	code := runner.Run(
-		[]string{"-kq", "-p", "8080"},
+		[]string{"-k", "-q", "-p", "8080"},
 		&stdout,
 		&stderr,
 	)
@@ -531,7 +530,7 @@ func TestRunOutputError(t *testing.T) {
 		&stderr,
 	)
 
-	if code != 1 {
-		t.Fatalf("Run() = %d, want 1", code)
+	if code != 1 || !strings.Contains(stderr.String(), "unable to write output: write failed") {
+		t.Fatalf("Run() = %d, stderr = %q", code, stderr.String())
 	}
 }

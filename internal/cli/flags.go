@@ -32,39 +32,21 @@ func Parse(args []string) (Options, error) {
 	for i := 0; i < len(args); i++ {
 		arg := args[i]
 
-		if arg == "--help" {
+		switch arg {
+		case "-h", "--help":
 			return opts, ErrHelp
-		}
 
-		if len(arg) < 2 || arg[0] != '-' || strings.HasPrefix(arg, "--") {
-			return opts, fmt.Errorf("invalid argument: %s", arg)
-		}
+		case "-k":
+			opts.Kill = true
 
-		needsValue := false
+		case "-q":
+			opts.Quiet = true
 
-		for _, flag := range arg[1:] {
-			switch flag {
-			case 'h':
-				return opts, ErrHelp
-
-			case 'k':
-				opts.Kill = true
-
-			case 'q':
-				opts.Quiet = true
-
-			case 'p':
-				if needsValue || portSet {
-					return opts, fmt.Errorf("port specified more than once")
-				}
-				needsValue = true
-
-			default:
-				return opts, fmt.Errorf("invalid flag: -%c", flag)
+		case "-p":
+			if portSet {
+				return opts, fmt.Errorf("port specified more than once")
 			}
-		}
 
-		if needsValue {
 			if i+1 >= len(args) {
 				return opts, fmt.Errorf("missing port")
 			}
@@ -78,6 +60,13 @@ func Parse(args []string) (Options, error) {
 
 			opts.Port = port
 			portSet = true
+
+		default:
+			if strings.HasPrefix(arg, "-") {
+				return opts, fmt.Errorf("invalid flag: %s", arg)
+			}
+
+			return opts, fmt.Errorf("invalid argument: %s", arg)
 		}
 	}
 
@@ -96,24 +85,23 @@ func Help() string {
 	return fmt.Sprintf(`Usage: whoisusing -p <port> [options]
 
 Options:
-  -p <port>    Port number to inspect (required, range: %d-%d)
-  -k           Gracefully kill the process using the specified port
+  -p <port>    TCP port to inspect (required, range: %d-%d)
+  -k           Gracefully terminate processes listening on the specified TCP port
   -q           Quiet mode: print only PIDs (one per line), no tables or messages
   -h, --help   Display this help message
 
-Short flags can be combined; -p takes the next argument as its value.
+Use each short flag separately; -p takes the next argument as its value.
 
 Exit codes:
   0  success (normal mode: also when the port is free)
-  1  quiet mode: port is free; or kill failed
+  1  quiet mode: no TCP listener found; or kill failed
   2  invalid arguments
 
 Examples:
   whoisusing -p 8080
   whoisusing -k -p 8080
-  whoisusing -kp 8080
-  whoisusing -qp 8080
+  whoisusing -q -p 8080
   PID=$(whoisusing -q -p 8080)
-  whoisusing -kqp 8080
+  whoisusing -k -q -p 8080
 `, minPort, maxPort)
 }

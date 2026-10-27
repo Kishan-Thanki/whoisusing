@@ -61,6 +61,7 @@ func (r *Runner) Run(args []string, stdout, stderr io.Writer) int {
 	}
 
 	if err := display(stdout, opts, processes); err != nil {
+		fmt.Fprintln(stderr, "whoisusing: unable to write output:", err)
 		return 1
 	}
 
@@ -100,10 +101,6 @@ func display(
 
 	if len(processes) == 0 {
 		return output.Free(w, opts.Port)
-	}
-
-	if err := output.Found(w, opts.Port); err != nil {
-		return err
 	}
 
 	return output.Table(w, processes)

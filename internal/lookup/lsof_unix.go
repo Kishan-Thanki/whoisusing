@@ -16,8 +16,7 @@ func execute(command string, port int) ([]byte, string, error) {
 		"-F",
 		lsofFieldFormat,
 		"-Ts",
-		"-i",
-		fmt.Sprintf(lsofPortFormat, port),
+		"-a", fmt.Sprintf("-iTCP:%d", port), "-sTCP:LISTEN",
 	)
 
 	var stderr bytes.Buffer
