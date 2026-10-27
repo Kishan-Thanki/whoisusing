@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/kishan-thanki/whoisusing/internal/process"
+	"github.com/kishan-thanki/whoisusing/v2/internal/process"
 )
 
 const (

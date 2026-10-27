@@ -21,7 +21,7 @@
 With Go 1.26 or newer:
 
 ```bash
-go install github.com/kishan-thanki/whoisusing@latest
+go install github.com/kishan-thanki/whoisusing/v2@latest
 ```
 
 Or download a binary for your platform from the [Releases](https://github.com/Kishan-Thanki/whoisusing/releases) page.

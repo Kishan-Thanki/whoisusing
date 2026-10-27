@@ -6,9 +6,9 @@ import (
 	"io"
 	"time"
 
-	"github.com/kishan-thanki/whoisusing/internal/cli"
-	"github.com/kishan-thanki/whoisusing/internal/output"
-	"github.com/kishan-thanki/whoisusing/internal/process"
+	"github.com/kishan-thanki/whoisusing/v2/internal/cli"
+	"github.com/kishan-thanki/whoisusing/v2/internal/output"
+	"github.com/kishan-thanki/whoisusing/v2/internal/process"
 )
 
 const terminateWait = time.Second

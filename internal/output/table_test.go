@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/kishan-thanki/whoisusing/internal/process"
+	"github.com/kishan-thanki/whoisusing/v2/internal/process"
 )
 
 func TestTable(t *testing.T) {

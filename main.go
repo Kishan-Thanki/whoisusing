@@ -4,9 +4,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/kishan-thanki/whoisusing/internal/app"
-	"github.com/kishan-thanki/whoisusing/internal/lookup"
-	"github.com/kishan-thanki/whoisusing/internal/process"
+	"github.com/kishan-thanki/whoisusing/v2/internal/app"
+	"github.com/kishan-thanki/whoisusing/v2/internal/lookup"
+	"github.com/kishan-thanki/whoisusing/v2/internal/process"
 )
 
 func main() {

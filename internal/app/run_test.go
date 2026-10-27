@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/kishan-thanki/whoisusing/internal/process"
+	"github.com/kishan-thanki/whoisusing/v2/internal/process"
 )
 
 type fakeFinder struct {

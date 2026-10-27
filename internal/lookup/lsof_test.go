@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/kishan-thanki/whoisusing/internal/process"
+	"github.com/kishan-thanki/whoisusing/v2/internal/process"
 )
 
 func TestParse(t *testing.T) {
